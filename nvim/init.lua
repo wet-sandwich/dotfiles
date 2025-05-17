@@ -79,7 +79,7 @@ vim.o.inccommand = "split"
 vim.o.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 10
+vim.o.scrolloff = 5
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
@@ -97,9 +97,9 @@ vim.keymap.set("i", "jk", "<esc>")
 vim.keymap.set("i", "kj", "<esc>")
 
 -- Basic file commands
-vim.keymap.set("n", "<leader><leader>q", "<cmd>q<cr>", { desc = "[q]uit nvim" })
-vim.keymap.set("n", "<leader><leader>w", "<cmd>w<cr>", { desc = "[w]rite file" })
-vim.keymap.set("n", "<leader><leader>s", "<cmd>w<cr><cmd>so<cr>", { desc = "write then [s]ource file" })
+vim.keymap.set("n", "<leader><leader>q", "<cmd>q<cr>", { desc = "[Q]uit nvim" })
+vim.keymap.set("n", "<leader><leader>w", "<cmd>w<cr>", { desc = "[W]rite file" })
+vim.keymap.set("n", "<leader><leader>s", "<cmd>w<cr><cmd>so<cr>", { desc = "[S]ource file" })
 
 -- Editing commands
 -- move selected blocks up and down (and format)
@@ -1019,6 +1019,7 @@ require("lazy").setup({
 		config = function()
 			require("oil").setup({
 				skip_confirm_for_simple_edits = true,
+				default_file_explorer = true,
 			})
 			vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "open parent directory" })
 		end,
@@ -1036,9 +1037,23 @@ require("lazy").setup({
 		},
 		lazy = false, -- neo-tree will lazily load itself
 		config = function()
-			require("neo-tree").setup()
+			require("neo-tree").setup({
+				filesystem = {
+					hijack_netrw_behavior = "disabled",
+				},
+			})
 			vim.keymap.set("n", "<leader>tt", "<cmd>Neotree toggle<cr>", { desc = "[T]ree [T]oggle" })
 			vim.keymap.set("n", "<leader>tr", "<cmd>Neotree reveal<cr>", { desc = "[T]ree [R]eveal" })
+		end,
+	},
+
+	-- [[ Local Plugins ]]
+	{
+		dir = "/home/andrew/projects/nvim/plugins/toolbox.nvim",
+		config = function()
+			vim.keymap.set("n", "<C-M-m>", "<CMD>TbMajor<cr>", { desc = "Increase [M]ajor version" })
+			vim.keymap.set("n", "<C-M-n>", "<CMD>TbMinor<cr>", { desc = "Increase mi[N]or version" })
+			vim.keymap.set("n", "<C-M-p>", "<CMD>TbPatch<cr>", { desc = "Increase [P]atch version" })
 		end,
 	},
 
@@ -1092,3 +1107,4 @@ require("lazy").setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+- vim: ts=2 sts=2 sw=2 et
