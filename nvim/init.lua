@@ -1051,9 +1051,9 @@ require("lazy").setup({
 	{
 		dir = "/home/andrew/projects/nvim/plugins/toolbox.nvim",
 		config = function()
-			vim.keymap.set("n", "<C-M-m>", "<CMD>TbMajor<cr>", { desc = "Increase [M]ajor version" })
-			vim.keymap.set("n", "<C-M-n>", "<CMD>TbMinor<cr>", { desc = "Increase mi[N]or version" })
-			vim.keymap.set("n", "<C-M-p>", "<CMD>TbPatch<cr>", { desc = "Increase [P]atch version" })
+			vim.keymap.set("n", "<C-M-m>", "<CMD>TBSemverMajor<cr>", { desc = "Increase [M]ajor version" })
+			vim.keymap.set("n", "<C-M-n>", "<CMD>TBSemverMinor<cr>", { desc = "Increase mi[N]or version" })
+			vim.keymap.set("n", "<C-M-p>", "<CMD>TBSemverPatch<cr>", { desc = "Increase [P]atch version" })
 		end,
 	},
 
