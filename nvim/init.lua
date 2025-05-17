@@ -1054,6 +1054,8 @@ require("lazy").setup({
 			vim.keymap.set("n", "<C-M-m>", "<CMD>TBSemverMajor<cr>", { desc = "Increase [M]ajor version" })
 			vim.keymap.set("n", "<C-M-n>", "<CMD>TBSemverMinor<cr>", { desc = "Increase mi[N]or version" })
 			vim.keymap.set("n", "<C-M-p>", "<CMD>TBSemverPatch<cr>", { desc = "Increase [P]atch version" })
+			vim.keymap.set("n", "<leader>ni", "<CMD>TBNpmInstall<cr>", { desc = "Run [N]pm [I]nstall" })
+			vim.keymap.set("n", "<leader>np", "<CMD>TBNpmInstallPkg<cr>", { desc = "Run [N]pm install [P]ackage" })
 		end,
 	},
 
