@@ -1051,6 +1051,11 @@ require("lazy").setup({
 	{
 		dir = "/home/andrew/projects/nvim/plugins/toolbox.nvim",
 		config = function()
+			require("toolbox").setup({
+				logger = {
+					prefix = "agn::",
+				},
+			})
 			vim.keymap.set("n", "<C-M-m>", "<CMD>TBIncSemver major<cr>", { desc = "Increment [M]ajor version" })
 			vim.keymap.set("n", "<C-M-n>", "<CMD>TBIncSemver minor<cr>", { desc = "Increase mi[N]or version" })
 			vim.keymap.set("n", "<C-M-p>", "<CMD>TBIncSemver patch<cr>", { desc = "Increase [P]atch version" })
