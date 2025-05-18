@@ -1054,15 +1054,29 @@ require("lazy").setup({
 			require("toolbox").setup({
 				logger = {
 					prefix = "agn::",
+					print_statements = {
+						lua = {
+							debug = 'print("***DEBUG*** %s:", vim.inspect(%s))',
+							warn = "vim.notify(vim.inspect(%s), vim.log.levels.WARN)",
+							error = "vim.notify(vim.inspect(%s), vim.log.levels.ERROR)",
+						},
+					},
 				},
 			})
+
+			-- Semantic version incrementing keymaps
 			vim.keymap.set("n", "<C-M-m>", "<CMD>TBIncSemver major<cr>", { desc = "Increment [M]ajor version" })
 			vim.keymap.set("n", "<C-M-n>", "<CMD>TBIncSemver minor<cr>", { desc = "Increase mi[N]or version" })
 			vim.keymap.set("n", "<C-M-p>", "<CMD>TBIncSemver patch<cr>", { desc = "Increase [P]atch version" })
+
+			-- Npm install keymaps
 			vim.keymap.set("n", "<leader>ni", "<CMD>TBNpmInstall all<cr>", { desc = "Run [N]pm [I]nstall" })
 			vim.keymap.set("n", "<leader>np", "<CMD>TBNpmInstall package<cr>", { desc = "Run [N]pm install [P]ackage" })
+
+			-- Variable logging keymaps
 			vim.keymap.set("n", "<leader>ll", "<CMD>TBLogVariable<cr>", { desc = "[L]og variable info [l]evel" })
 			vim.keymap.set("n", "<leader>ld", "<CMD>TBLogVariable debug<cr>", { desc = "[L]og variable [D]ebug" })
+			vim.keymap.set("n", "<leader>le", "<CMD>TBLogVariable error<cr>", { desc = "[L]og variable [E]rror" })
 		end,
 	},
 
