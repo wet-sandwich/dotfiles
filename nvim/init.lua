@@ -1065,19 +1065,19 @@ require("lazy").setup({
 			})
 
 			-- Semantic version incrementing keymaps
-			vim.keymap.set("n", "<C-M-m>", "<CMD>TBIncSemver major<cr>", { desc = "Increment [M]ajor version" })
-			vim.keymap.set("n", "<C-M-n>", "<CMD>TBIncSemver minor<cr>", { desc = "Increase mi[N]or version" })
-			vim.keymap.set("n", "<C-M-p>", "<CMD>TBIncSemver patch<cr>", { desc = "Increase [P]atch version" })
+			vim.keymap.set("n", "<C-M-m>", "<cmd>TBIncSemver major<cr>", { desc = "Increment [M]ajor version" })
+			vim.keymap.set("n", "<C-M-n>", "<cmd>TBIncSemver minor<cr>", { desc = "Increase mi[N]or version" })
+			vim.keymap.set("n", "<C-M-p>", "<cmd>TBIncSemver patch<cr>", { desc = "Increase [P]atch version" })
 
 			-- Npm install keymaps
-			vim.keymap.set("n", "<leader>ni", "<CMD>TBNpmInstall all<cr>", { desc = "Run [N]pm [I]nstall" })
-			vim.keymap.set("n", "<leader>np", "<CMD>TBNpmInstall package<cr>", { desc = "Run [N]pm install [P]ackage" })
+			vim.keymap.set("n", "<leader>ni", "<cmd>TBNpmInstall all<cr>", { desc = "Run [N]pm [I]nstall" })
+			vim.keymap.set("n", "<leader>np", "<cmd>TBNpmInstall package<cr>", { desc = "Run [N]pm install [P]ackage" })
 
 			-- Variable logging keymaps
-			vim.keymap.set("n", "<leader>li", "<CMD>TBLogVariable info<cr>", { desc = "[L]og variable [I]nfo" })
-			vim.keymap.set("n", "<leader>ld", "<CMD>TBLogVariable debug<cr>", { desc = "[L]og variable [D]ebug" })
-			vim.keymap.set("n", "<leader>lw", "<CMD>TBLogVariable warn<cr>", { desc = "[L]og variable [W]arn" })
-			vim.keymap.set("n", "<leader>le", "<CMD>TBLogVariable error<cr>", { desc = "[L]og variable [E]rror" })
+			vim.keymap.set("n", "<leader>li", "<cmd>TBLogVariable info<cr>", { desc = "[L]og variable [I]nfo" })
+			vim.keymap.set("n", "<leader>ld", "<cmd>TBLogVariable debug<cr>", { desc = "[L]og variable [D]ebug" })
+			vim.keymap.set("n", "<leader>lw", "<cmd>TBLogVariable warn<cr>", { desc = "[L]og variable [W]arn" })
+			vim.keymap.set("n", "<leader>le", "<cmd>TBLogVariable error<cr>", { desc = "[L]og variable [E]rror" })
 		end,
 	},
 
