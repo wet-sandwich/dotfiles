@@ -1056,9 +1056,10 @@ require("lazy").setup({
 					prefix = "agn::",
 					print_statements = {
 						lua = {
+							info = 'print("%s:", vim.inspect(%s))',
 							debug = 'print("***DEBUG*** %s:", vim.inspect(%s))',
-							warn = "vim.notify(vim.inspect(%s), vim.log.levels.WARN)",
-							error = "vim.notify(vim.inspect(%s), vim.log.levels.ERROR)",
+							warn = 'vim.notify("%s:" .. vim.inspect(%s), vim.log.levels.WARN)',
+							error = 'vim.notify("%s:" .. vim.inspect(%s), vim.log.levels.ERROR)',
 						},
 					},
 				},
@@ -1074,8 +1075,9 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>np", "<CMD>TBNpmInstall package<cr>", { desc = "Run [N]pm install [P]ackage" })
 
 			-- Variable logging keymaps
-			vim.keymap.set("n", "<leader>ll", "<CMD>TBLogVariable<cr>", { desc = "[L]og variable info [l]evel" })
+			vim.keymap.set("n", "<leader>li", "<CMD>TBLogVariable info<cr>", { desc = "[L]og variable [I]nfo" })
 			vim.keymap.set("n", "<leader>ld", "<CMD>TBLogVariable debug<cr>", { desc = "[L]og variable [D]ebug" })
+			vim.keymap.set("n", "<leader>lw", "<CMD>TBLogVariable warn<cr>", { desc = "[L]og variable [W]arn" })
 			vim.keymap.set("n", "<leader>le", "<CMD>TBLogVariable error<cr>", { desc = "[L]og variable [E]rror" })
 		end,
 	},
