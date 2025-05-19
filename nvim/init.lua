@@ -1053,7 +1053,6 @@ require("lazy").setup({
 		config = function()
 			require("toolbox").setup({
 				logger = {
-					prefix = "agn::",
 					print_statements = {
 						lua = {
 							info = 'print("%s:", vim.inspect(%s))',
