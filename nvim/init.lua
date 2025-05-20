@@ -1049,7 +1049,8 @@ require("lazy").setup({
 
 	-- [[ Local Plugins ]]
 	{
-		dir = "/home/andrew/projects/nvim/plugins/toolbox.nvim",
+		-- dir = "/home/andrew/projects/nvim/plugins/toolbox.nvim",
+		"wet-sandwich/toolbox.nvim",
 		config = function()
 			require("toolbox").setup({
 				logger = {
