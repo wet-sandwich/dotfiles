@@ -106,7 +106,7 @@ vim.keymap.set("n", "<leader><leader>s", "<cmd>w<cr><cmd>so<cr>", { desc = "[S]o
 vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv")
 -- clear the current line and stay in Normal mode
-vim.keymap.set("n", "<leader>cl", "S<esc>")
+vim.keymap.set("n", "<leader>cl", "S<esc>", { desc = "[C]lear [L]ine" })
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
