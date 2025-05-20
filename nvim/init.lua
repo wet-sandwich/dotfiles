@@ -1075,10 +1075,30 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>np", "<cmd>TBNpmInstall package<cr>", { desc = "Run [N]pm install [P]ackage" })
 
 			-- Variable logging keymaps
-			vim.keymap.set("n", "<leader>li", "<cmd>TBLogVariable info<cr>", { desc = "[L]og variable [I]nfo" })
-			vim.keymap.set("n", "<leader>ld", "<cmd>TBLogVariable debug<cr>", { desc = "[L]og variable [D]ebug" })
-			vim.keymap.set("n", "<leader>lw", "<cmd>TBLogVariable warn<cr>", { desc = "[L]og variable [W]arn" })
-			vim.keymap.set("n", "<leader>le", "<cmd>TBLogVariable error<cr>", { desc = "[L]og variable [E]rror" })
+			vim.keymap.set(
+				{ "n", "v" },
+				"<leader>li",
+				"<cmd>TBLogVariable info<cr>",
+				{ desc = "[L]og variable [I]nfo" }
+			)
+			vim.keymap.set(
+				{ "n", "v" },
+				"<leader>ld",
+				"<cmd>TBLogVariable debug<cr>",
+				{ desc = "[L]og variable [D]ebug" }
+			)
+			vim.keymap.set(
+				{ "n", "v" },
+				"<leader>lw",
+				"<cmd>TBLogVariable warn<cr>",
+				{ desc = "[L]og variable [W]arn" }
+			)
+			vim.keymap.set(
+				{ "n", "v" },
+				"<leader>le",
+				"<cmd>TBLogVariable error<cr>",
+				{ desc = "[L]og variable [E]rror" }
+			)
 		end,
 	},
 
