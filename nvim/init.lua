@@ -1051,6 +1051,9 @@ require("lazy").setup({
 	{
 		-- dir = "/home/andrew/projects/nvim/plugins/toolbox.nvim",
 		"wet-sandwich/toolbox.nvim",
+		dependencies = {
+			"L3MON4D3/LuaSnip",
+		},
 		config = function()
 			require("toolbox").setup({
 				logger = {
