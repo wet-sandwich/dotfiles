@@ -1102,6 +1102,13 @@ require("lazy").setup({
 				"<cmd>TBLogVariable error<cr>",
 				{ desc = "[L]og variable [E]rror" }
 			)
+
+			-- JSON keymaps
+			vim.keymap.set("n", "<leader>jf", "<cmd>TBJson format<cr>", { desc = "[J]SON [F]ormat" })
+			vim.keymap.set("n", "<leader>jp", "<cmd>TBJson parse<cr>", { desc = "[J]SON [P]arse" })
+
+			-- Diff Checker keymaps
+			vim.keymap.set("n", "<leader>dc", "<cmd>TBDiffChecker<cr>", { desc = "Open [D]iff [C]hecker" })
 		end,
 	},
 
