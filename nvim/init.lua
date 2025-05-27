@@ -1113,7 +1113,7 @@ require("lazy").setup({
 
 			-- Floaterminal keymaps
 			vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
-			vim.keymap.set({ "n", "t" }, "<leader>te", "<cmd>TBFloaterminal<cr>", { desc = "[T]oggle te[R]minal" })
+			vim.keymap.set({ "n", "t" }, "<leader>te", "<cmd>TBFloaterminal<cr>", { desc = "[T]oggle t[E]rminal" })
 		end,
 	},
 
