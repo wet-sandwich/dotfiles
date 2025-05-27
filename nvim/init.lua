@@ -1110,6 +1110,10 @@ require("lazy").setup({
 
 			-- Diff Checker keymaps
 			vim.keymap.set("n", "<leader>dc", "<cmd>TBDiffChecker<cr>", { desc = "Open [D]iff [C]hecker" })
+
+			-- Floaterminal keymaps
+			vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
+			vim.keymap.set({ "n", "t" }, "<leader>te", "<cmd>TBFloaterminal<cr>", { desc = "[T]oggle te[R]minal" })
 		end,
 	},
 
