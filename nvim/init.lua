@@ -1106,6 +1106,7 @@ require("lazy").setup({
 			-- JSON keymaps
 			vim.keymap.set("n", "<leader>jf", "<cmd>TBJson format<cr>", { desc = "[J]SON [F]ormat" })
 			vim.keymap.set("n", "<leader>jp", "<cmd>TBJson parse<cr>", { desc = "[J]SON [P]arse" })
+			vim.keymap.set("n", "<leader>js", "<cmd>TBJson stringify<cr>", { desc = "[J]SON [S]tringify" })
 
 			-- Diff Checker keymaps
 			vim.keymap.set("n", "<leader>dc", "<cmd>TBDiffChecker<cr>", { desc = "Open [D]iff [C]hecker" })
