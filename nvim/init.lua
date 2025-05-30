@@ -818,7 +818,9 @@ require("lazy").setup({
 					--   end,
 					-- },
 				},
-				opts = {},
+				opts = {
+					update_events = { "TextChanged", "TextChangedI" },
+				},
 			},
 			"folke/lazydev.nvim",
 		},
