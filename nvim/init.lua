@@ -1069,6 +1069,7 @@ require("lazy").setup({
 		"wet-sandwich/toolbox.nvim",
 		dependencies = {
 			"L3MON4D3/LuaSnip",
+			"nvim-telescope/telescope.nvim",
 		},
 		config = function()
 			require("toolbox").setup({
