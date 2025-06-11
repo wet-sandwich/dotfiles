@@ -1078,6 +1078,7 @@ require("lazy").setup({
 			-- Npm install keymaps
 			vim.keymap.set("n", "<leader>ni", "<cmd>TBNpmInstall all<cr>", { desc = "Run [N]pm [I]nstall" })
 			vim.keymap.set("n", "<leader>np", "<cmd>TBNpmInstall package<cr>", { desc = "Run [N]pm install [P]ackage" })
+			vim.keymap.set("n", "<leader>nr", "<cmd>TBNpmRun<cr>", { desc = "[N]pm [R]un script" })
 
 			-- Variable logging keymaps
 			vim.keymap.set(
