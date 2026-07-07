@@ -1,6 +1,10 @@
+-- ============================================================
+-- SECTION 1: OPTIONS
+-- Core Neovim settings, leaders, options, basic keymaps, basic autocmds
+-- ============================================================
 do
-	-- [[ Setting options ]]
-	-- See `:help vim.o`
+	-- Enable faster startup by caching compiled Lua modules
+	vim.loader.enable()
 
 	-- Set <space> as the leader key
 	-- See `:help mapleader`
@@ -9,6 +13,9 @@ do
 	vim.g.maplocalleader = " "
 
 	vim.g.have_nerd_font = true
+
+	-- [[ Setting options ]]
+	-- See `:help vim.o`
 
 	-- Set the cursor for Insert mode
 	vim.o.guicursor = "i-ci:hor20-Cursor"
@@ -21,9 +28,6 @@ do
 
 	-- Turn off line wrap
 	vim.o.wrap = false
-
-	-- Disable comments on new lines
-	vim.o.formatoptions = "tqj"
 
 	-- Make line numbers default
 	vim.o.number = true
@@ -75,11 +79,19 @@ do
 	-- Minimal number of screen lines to keep above and below the cursor
 	vim.o.scrolloff = 5
 
+	-- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
+	-- instead raise a dialog asking if you wish to save the current file(s)
+	-- See `:help 'confirm'`
 	vim.o.confirm = true
 end
 
+-- ============================================================
+-- SECTION 2: KEYMAPS
+-- basic keymaps
+-- ============================================================
 do
 	-- [[ Basic Keymaps ]]
+	-- See `:help vim.keymap.set()`
 
 	-- Clear highlights on search when pressing <Esc> in normal mode
 	vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -148,20 +160,23 @@ do
 	})
 
 	vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
-	-- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-	-- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 	-- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 
 	-- Exit terminal mode with a simple shortcut
 	vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 end
 
--- [[ Plugin Manager ]]
--- See `:help vim.pack`, `:help vim.pack-examples`
+-- ============================================================
+-- SECTION 3: PLUGIN MANAGER INTRO
+-- vim.pack intro, build hooks
+-- ============================================================
 do
+	-- [[ Plugin Manager ]]
+	-- See `:help vim.pack`, `:help vim.pack-examples`
+	--
 	-- Inspect plugin state and pending updates:
 	--  :lua vim.pack.update(nil, { offline = true })
-
+	--
 	-- Update plugins:
 	--  :lua vim.pack.update()
 
@@ -217,11 +232,16 @@ local function gh(repo)
 	return "https://github.com/" .. repo
 end
 
--- [[ UI & Core UX Plugins ]]
+-- ============================================================
+-- SECTION 4: UI / CORE UX PLUGINS
+-- guess-indent, gitsigns, which-key, colorscheme, todo-comments, mini modules
+-- ============================================================
 do
+	-- Automatically detect and set indentation
 	vim.pack.add({ gh("NMAC427/guess-indent.nvim") })
 	require("guess-indent").setup({})
 
+	-- Add git related signs to the gutter
 	vim.pack.add({ gh("lewis6991/gitsigns.nvim") })
 	require("gitsigns").setup({
 		signs = {
@@ -233,6 +253,7 @@ do
 		},
 	})
 
+	-- Show pending keybinds
 	vim.pack.add({ gh("folke/which-key.nvim") })
 	require("which-key").setup({
 		delay = 300,
@@ -252,16 +273,21 @@ do
 	})
 	vim.cmd.colorscheme("catppuccin")
 
+	-- Highlight todo, notes, etc. in comments
 	vim.pack.add({ gh("folke/todo-comments.nvim") })
 	require("todo-comments").setup({ signs = false })
 
+	-- [[ mini.nvim ]]
+	-- A collection of various small independent plugins/modules
 	vim.pack.add({ gh("nvim-mini/mini.nvim") })
 
+	-- Use pretty icons if available
 	if vim.g.have_nerd_font then
 		require("mini.icons").setup()
 		MiniIcons.mock_nvim_web_devicons()
 	end
 
+	-- Better Around/Inside textobjects
 	require("mini.ai").setup({
 		mappings = {
 			around_next = "aa",
@@ -270,13 +296,17 @@ do
 		n_lines = 500,
 	})
 
+	-- Add/delete/replace surroundings (brackets, quotes, etc.)
 	require("mini.surround").setup()
 
+	-- Automatically add matching paired character (brackets, quotes, etc.)
 	require("mini.pairs").setup()
 
+	-- Simple statusline
 	local statusline = require("mini.statusline")
 	statusline.setup({ use_icons = vim.g.have_nerd_font })
 
+	-- Set cursor location to LINE:COLUMN
 	---@diagnostic disable-next-line: duplicate-set-field
 	statusline.section_location = function()
 		return "%2l:%-2v"
@@ -286,6 +316,7 @@ do
 	-- usage: type `:H ` followed by the help topic
 	vim.cmd("cnoreabbrev H vert h")
 
+	-- [[ toolbox.nvim ]]
 	vim.pack.add({ gh("wet-sandwich/toolbox.nvim") })
 	require("toolbox").setup({
 		logger = {
@@ -327,11 +358,18 @@ do
 	-- Floaterminal keymaps
 	vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 	vim.keymap.set({ "n", "t" }, "<leader><leader>t", "<cmd>TBFloaterminal<cr>", { desc = "[T]oggle t[E]rminal" })
+
+	-- Add plugin for using lazygit within neovim
+	vim.pack.add({ gh("kdheepak/lazygit.nvim") })
+	vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "[L]azy[g]it" })
 end
 
+-- ============================================================
+-- SECTION 5: SEARCH & NAVIGATION
+-- Telescope setup, keymaps, LSP picker mappings
+-- ============================================================
 do
-	-- [[ Search & Navigation ]]
-
+	-- [[ Fuzzy Finder ]]
 	---@type (string|vim.pack.Spec)[]
 	local telescope_plugins = {
 		gh("nvim-lua/plenary.nvim"),
@@ -344,15 +382,18 @@ do
 
 	vim.pack.add(telescope_plugins)
 
+	-- See `:help telescope` and `:help telescope.setup()`
 	require("telescope").setup({
 		extensions = {
 			["ui-select"] = { require("telescope.themes").get_dropdown() },
 		},
 	})
 
+	-- Enable extensions if installed
 	pcall(require("telescope").load_extension, "fzf")
 	pcall(require("telescope").load_extension, "ui-select")
 
+	-- See `:help telescope.builtin`
 	local builtin = require("telescope.builtin")
 	vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 	vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
@@ -365,17 +406,22 @@ do
 	vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[ ] Find existing buffers" })
 	vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Search [G]it [F]iles" })
 
+	-- Add Telescope-based LSP pickers when an LSP attaches to a buffer
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("telescope-lsp-attach", { clear = true }),
 		callback = function(event)
 			local buf = event.buf
 
+			-- Find references for the word under the cursor
 			vim.keymap.set("n", "grr", builtin.lsp_references, { buffer = buf, desc = "[G]oto [R]eferences" })
 
+			-- Jump to the implementation of the word under the cursor
 			vim.keymap.set("n", "gri", builtin.lsp_implementations, { buffer = buf, desc = "[G]oto [I]mplementation" })
 
+			-- Jump to the definition of the word under the cursor
 			vim.keymap.set("n", "grd", builtin.lsp_definitions, { buffer = buf, desc = "[G]oto [D]efinition" })
 
+			-- Jump to the type of the word under the cursor
 			vim.keymap.set(
 				"n",
 				"grt",
@@ -383,8 +429,10 @@ do
 				{ buffer = buf, desc = "[G]oto [T]ype Definition" }
 			)
 
+			-- Fuzzy find all the symbols in the current document
 			vim.keymap.set("n", "gO", builtin.lsp_document_symbols, { buffer = buf, desc = "Open Document Symbols" })
 
+			-- Fuzzy find all the symbols in the current workspace
 			vim.keymap.set(
 				"n",
 				"gW",
@@ -394,6 +442,7 @@ do
 		end,
 	})
 
+	-- Override default behavior and theme when searching
 	vim.keymap.set("n", "<leader>/", function()
 		-- You can pass additional configuration to telescope to change theme, layout, etc.
 		builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
@@ -402,10 +451,12 @@ do
 		}))
 	end, { desc = "[/] Fuzzily search in current buffer" })
 
+	-- Shortcut for searching Neovim configuration files
 	vim.keymap.set("n", "<leader>sn", function()
 		builtin.find_files({ cwd = vim.fn.stdpath("config"), follow = true })
 	end, { desc = "[S]earch [N]eovim files" })
 
+	-- Jump to specific words using annotated sequences
 	vim.pack.add({ gh("smoka7/hop.nvim") })
 	require("hop").setup({
 		keys = "etovxqpdygfblzhckisuran",
@@ -420,6 +471,7 @@ do
 	vim.keymap.set("n", "<leader>w", HopForward, { desc = "hop [w]ords after cursor" })
 	vim.keymap.set("n", "<leader>b", HopBackward, { desc = "hop words [b]efore cursor" })
 
+	-- Replace netrw with oil
 	vim.pack.add({ gh("stevearc/oil.nvim") })
 	require("oil").setup({
 		skip_confirm_for_simple_edits = true,
@@ -427,9 +479,18 @@ do
 	})
 	vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
 
-	vim.pack.add({ gh("MunifTanjim/nui.nvim") })
-
-	vim.pack.add({ gh("nvim-neo-tree/neo-tree.nvim") })
+	-- [[ neo-tree ]]
+	-- Provides a side pane for viewing file structure
+	vim.pack.add({
+		{
+			src = gh("nvim-neo-tree/neo-tree.nvim"),
+			version = vim.version.range("3"),
+		},
+		-- dependencies
+		gh("nvim-lua/plenary.nvim"),
+		gh("MunifTanjim/nui.nvim"),
+		gh("nvim-tree/nvim-web-devicons"),
+	})
 	require("neo-tree").setup({
 		filesystem = {
 			hijack_netrw_behavior = "disabled",
@@ -439,12 +500,18 @@ do
 	vim.keymap.set("n", "<leader>tr", "<cmd>Neotree reveal<cr>", { desc = "[T]ree [R]eveal" })
 end
 
+-- ============================================================
+-- SECTION 6: LSP
+-- LSP keymaps, server configuration, Mason tools installations
+-- ============================================================
 do
 	-- [[ LSP Config ]]
 
+	-- Useful status updates for LSP
 	vim.pack.add({ gh("j-hui/fidget.nvim") })
 	require("fidget").setup({})
 
+	-- Run this function when an LSP attaches to a buffer
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 		callback = function(event)
@@ -453,12 +520,16 @@ do
 				vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP:" .. desc })
 			end
 
+			-- Rename the variable under the cursor
 			map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
 
+			-- Execute a code action (usually the cursor needs to be on top of an error or suggestion)
 			map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
 
+			-- Go to declaration (different than definition)
 			map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
+			-- Add keymap to toggle inlay hints
 			local client = vim.lsp.get_client_by_id(event.data.client_id)
 			if client and client:supports_method("textDocument/inlayHint", event.buf) then
 				map("<leader>th", function()
@@ -468,6 +539,7 @@ do
 		end,
 	})
 
+	-- Enable the following language servers
 	---@type table<string, vim.lsp.Config>
 	local servers = {
 		gopls = {},
@@ -475,6 +547,7 @@ do
 		ts_ls = {},
 		stylua = {},
 
+		-- Special Lua config, as recommended by Neovim help docs
 		lua_ls = {
 			on_init = function(client)
 				client.server_capabilities.documentFormattingProvider = false
@@ -519,8 +592,10 @@ do
 		gh("WhoIsSethDaniel/mason-tool-installer.nvim"),
 	})
 
+	-- Automatically install LSPs and related tools to stdpath for Neovim
 	require("mason").setup({})
 
+	-- Ensure the servers and tools above are installed
 	local ensure_installed = vim.tbl_keys(servers or {})
 	vim.list_extend(ensure_installed, {})
 
@@ -532,6 +607,10 @@ do
 	end
 end
 
+-- ============================================================
+-- SECTION 7: FORMATTING
+-- conform.nvim setup and keymap
+-- ============================================================
 do
 	-- [[ Formatting ]]
 	vim.pack.add({ gh("stevearc/conform.nvim") })
@@ -559,6 +638,10 @@ do
 	end, { desc = "[F]ormat buffer" })
 end
 
+-- ============================================================
+-- SECTION 8: AUTOCOMPLETE & SNIPPETS
+-- blink.cmp and luasnip setup
+-- ============================================================
 do
 	-- [[ Snippet Engine ]]
 	vim.pack.add({ { src = gh("L3Mon4D3/LuaSnip"), version = vim.version.range("2.*") } })
@@ -591,10 +674,16 @@ do
 	})
 end
 
+-- ============================================================
+-- SECTION 9: TREESITTER
+-- Parser installation, syntax highlighting, folds, indentation
+-- ============================================================
 do
 	-- [[ Configure Treesitter ]]
+	-- See `:help nvim-treesitter-intro`
 	vim.pack.add({ { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" } })
 
+	-- Ensure basic parsers are installed
 	local parsers =
 		{ "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "markdown_inline", "query", "vim", "vimdoc" }
 	require("nvim-treesitter").install(parsers)
@@ -637,13 +726,6 @@ do
 			end
 		end,
 	})
-end
-
-do
-	-- [[ External ]]
-
-	vim.pack.add({ gh("kdheepak/lazygit.nvim") })
-	vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "[L]azy[g]it" })
 end
 
 -- Git related plugins
