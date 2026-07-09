@@ -33,10 +33,8 @@ do
 	vim.o.number = true
 	vim.o.relativenumber = true
 
-	-- Set tabs
-	vim.o.tabstop = 2
+	-- Set tab options
 	vim.o.softtabstop = 2
-	vim.o.shiftwidth = 2
 	vim.o.expandtab = true
 
 	-- Enable mouse mode
@@ -727,17 +725,6 @@ do
 		end,
 	})
 end
-
--- Git related plugins
--- "tpope/vim-fugitive",
--- "tpope/vim-rhubarb",
-
--- Detect tabstop and shiftwidth automatically
--- "tpope/vim-sleuth",
-
--- "gc" to comment visual regions/lines
--- { "numToStr/Comment.nvim", opts = {} },
--- }, {})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
