@@ -267,7 +267,7 @@ do
 					return "[c"
 				end
 				vim.schedule(function()
-					gs.previous_hunk()
+					gs.prev_hunk()
 				end)
 				return "<Ignore>"
 			end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
