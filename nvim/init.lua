@@ -560,6 +560,7 @@ do
 					end
 				end
 
+				--- @diagnostic disable-next-line: param-type-mismatch
 				client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
 					runtime = {
 						version = "LuaJIT",
