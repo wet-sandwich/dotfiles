@@ -271,6 +271,18 @@ do
 				end)
 				return "<Ignore>"
 			end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
+
+			vim.keymap.set({ "n", "v" }, "<leader>tb", function()
+				vim.schedule(function()
+					gs.toggle_current_line_blame()
+				end)
+			end, { buffer = bufnr, desc = "Git [T]oggle [B]lame" })
+
+			vim.keymap.set({ "n", "v" }, "<leader>hs", gs.stage_hunk, { desc = "Stage git hunk" })
+
+			vim.keymap.set({ "n", "v" }, "<leader>hu", gs.undo_stage_hunk, { desc = "Undo stage hunk" })
+
+			vim.keymap.set({ "n", "v" }, "<leader>hr", gs.reset_hunk, { desc = "Stage git hunk" })
 		end,
 	})
 
