@@ -300,11 +300,8 @@ do
 	})
 
 	-- [[ Colorscheme ]]
-	vim.pack.add({ gh("catppuccin/nvim") })
-	require("catppuccin").setup({
-		flavour = "macchiato",
-	})
-	vim.cmd.colorscheme("catppuccin")
+	vim.pack.add({ { src = gh("catppuccin/nvim"), name = "catppuccin" } })
+	vim.cmd.colorscheme("catppuccin-mocha")
 
 	-- Highlight todo, notes, etc. in comments
 	vim.pack.add({ gh("folke/todo-comments.nvim") })
