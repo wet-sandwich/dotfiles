@@ -301,7 +301,10 @@ do
 
 	-- [[ Colorscheme ]]
 	vim.pack.add({ { src = gh("catppuccin/nvim"), name = "catppuccin" } })
-	vim.cmd.colorscheme("catppuccin-mocha")
+	vim.pack.add({ gh("EdenEast/nightfox.nvim") })
+	-- vim.cmd.colorscheme("catppuccin-mocha")
+	-- vim.cmd.colorscheme("catppuccin-macchiato")
+	vim.cmd.colorscheme("nightfox")
 
 	-- Highlight todo, notes, etc. in comments
 	vim.pack.add({ gh("folke/todo-comments.nvim") })
